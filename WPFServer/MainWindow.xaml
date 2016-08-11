@@ -1,0 +1,75 @@
+﻿<Window x:Class="WPFServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="WPF Server" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <Button Margin="5" HorizontalAlignment="Left" Height="25" Width="100" Content="Start Server" x:Name="StartButton" Click="StartButton_OnClick"/>
+
+                <Button Margin="5" HorizontalAlignment="Center" Height="25" Width="100" Content="Stop Server" x:Name="StopButton" Click="StopButton_OnClick"/>
+                <Button Margin="5" HorizontalAlignment="Right" Height="25" Width="150" Content="Generate New Client" x:Name="CreateClient" Click="CreateClient_OnClick"/>
+            </StackPanel>
+            
+
+            <RichTextBox x:Name="RichTextBoxConsole" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                         Margin="10" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto">
+                <FlowDocument>
+                    <Paragraph>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Connected Users :" Margin="10"/>
+
+            <ListBox x:Name="usersList" SelectionChanged="UsersList_OnSelectionChanged" Grid.Row="1" Grid.Column="0" Margin="10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding UserName}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding UserConnectionId}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <TextBlock Text="Enter message to send to the selected client:" Grid.Row="0" Grid.Column="1" Margin="10"/>
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+
+                <TextBox x:Name="messageTB" Margin="10"></TextBox>
+                <Button Content="Send Message" Width="100" Height="30" x:Name="sendMsgBtn" Click="SendMsgBtn_OnClick"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
